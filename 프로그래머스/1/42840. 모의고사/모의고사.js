@@ -8,7 +8,7 @@ function solution(answers) {
         for (i = 0; i < 3; i++)
         {
             var len  = arr[i].length;
-            if(arr[i][idx % len] == answer)
+            if(arr[i][idx % len] === answer)
                 scores[i]++;
         }
     });
@@ -17,7 +17,7 @@ function solution(answers) {
     var answer = [];
     
     scores.forEach(function(score, idx){
-        if (max_score == score)
+        if (max_score === score)
             answer.push(idx + 1);        
     });
     
