@@ -1,19 +1,21 @@
-var ans = 0;
 
-function dfs(sum, target, cnt, numbers){
-    if (cnt == numbers.length) {
-        if (target == sum)
-            ans++;
-        return ;
-    }
-    
-    dfs(sum+numbers[cnt], target, cnt + 1, numbers);
-    dfs(sum-numbers[cnt], target, cnt + 1, numbers);
-}
 
 function solution(numbers, target) {
-    dfs(0, target, 0, numbers);
+    var answer = 0;
     
-    var answer = ans;
+    dfs(0, 0);
+    
+    function dfs(sum, cnt){
+        if (cnt < numbers.length) {
+            dfs(sum+numbers[cnt], cnt + 1);
+            dfs(sum-numbers[cnt], cnt + 1);
+        }
+        else
+        {
+            if (target == sum)
+                answer++;
+            return ;
+        }
+    };
     return answer;
 }
