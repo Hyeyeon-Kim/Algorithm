@@ -1,61 +1,49 @@
-class MiniHeap{
-    constructor(){
-        this.heap = [];
+class MiniHeap {
+  constructor() {
+    this.arr = [];
+  }
+  size() {
+    return this.arr.length;
+  }
+  add(num) {
+    this.arr.push(num);
+
+    let index = this.arr.length - 1;
+    while (index > 0) {
+      let pIndex = Math.floor((index - 1) / 2);
+
+      if (this.arr[pIndex] <= this.arr[index]) break;
+      [this.arr[pIndex], this.arr[index]] = [this.arr[index], this.arr[pIndex]];
+      index = pIndex;
     }
+  }
 
-    size() {
-        return this.heap.length;
+  del() {
+    if (this.arr.length === 0) return null;
+    if (this.arr.length === 1) return this.arr.pop();
+
+    const min = this.arr[0];
+    this.arr[0] = this.arr.pop();
+    let index = 0;
+
+    while (index * 2 + 1 < this.arr.length) {
+      let leftIndex = index * 2 + 1;
+      let rightIndex = index * 2 + 2;
+      let minIndex = leftIndex;
+
+      if (
+        rightIndex < this.arr.length &&
+        this.arr[leftIndex] > this.arr[rightIndex]
+      )
+        minIndex = rightIndex;
+
+      if (this.arr[minIndex] >= this.arr[index]) break;
+
+      [this.arr[minIndex], this.arr[index]] = [this.arr[index], this.arr[minIndex]];
+      index = minIndex;
     }
-    
-    peek(){
-        return this.heap[0];
-    }
-    
-    add(value){
-        this.heap.push(value);
-        
-        let index = this.heap.length - 1;
-        
-        while (index > 0) {
-            let parentIndex = Math.floor((index - 1) / 2);
-            
-            if (this.heap[parentIndex] <= this.heap[index]) {
-                break;
-            }
-            
-            [this.heap[parentIndex], this.heap[index]] = [this.heap[index], this.heap[parentIndex]];
-            index = parentIndex;
-        }
-    }
-    
-    del(){
-        if (this.heap.length === 0) 
-            return null;
-        if (this.heap.length === 1) 
-            return this.heap.pop();
-
-        const minValue = this.heap[0]; 
-        this.heap[0] = this.heap.pop();
-        let index = 0;
-
-        while (index * 2 + 1 < this.heap.length) {
-            let leftChildIndex = index * 2 + 1;
-            let rightChildIndex = index * 2 + 2;
-            let smallerChildIndex = leftChildIndex;
-
-            if (rightChildIndex < this.heap.length && this.heap[rightChildIndex] < this.heap[leftChildIndex]) {
-                smallerChildIndex = rightChildIndex;
-            }
-
-            if (this.heap[index] <= this.heap[smallerChildIndex]) {
-                break;
-            }
-
-            [this.heap[index], this.heap[smallerChildIndex]] = [this.heap[smallerChildIndex], this.heap[index]];
-            index = smallerChildIndex;
-        }
-        return minValue;
-    }
+    return min;
+  }
 }
 
 function solution(scoville, K) {
@@ -66,7 +54,7 @@ function solution(scoville, K) {
     for (scov of scoville)
         miniheap.add(scov);
     
-    while (miniheap.heap[0] < K)
+    while (miniheap.arr[0] < K)
     {
         if (miniheap.size() == 1)
         {
