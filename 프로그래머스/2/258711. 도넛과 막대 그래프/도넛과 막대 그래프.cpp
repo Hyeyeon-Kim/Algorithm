@@ -53,16 +53,6 @@ vector<int> solution(vector<vector<int>> edges) {
             answer[3]++;
     } 
     answer[1] = shapeCnt - (answer[2] + answer[3]);
-    
-    cout << shapeCnt;
-        // cout << a.first << ": " << a.second[0] << " " << a.second[1] << endl;
-    
-    // cout << root;
-    
-//     vector <vector<int> > node(input.size(), vector<int>(2, 0));
-    
-//     for (auto n : input){
-//         vector 
-//     }
+
     return answer;
 }
