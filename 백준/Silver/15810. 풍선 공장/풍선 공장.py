@@ -1,23 +1,20 @@
-import heapq
+n, m = map(int, input().split())
+A = list(map(int, input().split()))
 
-user_input = input()
-numbers = list(map(int, user_input.split()))
+l = 1
+r = 10**12
 
-n = numbers[0]
-m = numbers[1]
-
-user_input = input()
-numbers = list(map(int, user_input.split()))
-
-que = []
-for i in range(n):
-    heapq.heappush(que, (numbers[i], i))
-
-ans = 0
-
-for i in range(m):
-    val, idx = heapq.heappop(que)
-    ans = val
-    heapq.heappush(que, (val + numbers[idx], idx))
-
-print(ans)
+while (l <= r):
+    mid = (l+r) // 2
+    cnt = 0
+	
+    for a in A:
+        cnt += mid // a
+	
+    if (cnt >= m):
+        r = mid - 1
+        result = mid
+    else:
+        l = mid + 1
+        
+print(result)
