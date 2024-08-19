@@ -2,7 +2,7 @@ n, m = map(int, input().split())
 A = list(map(int, input().split()))
 
 l = 1
-r = 10**12
+r = m * max(A)
 
 while (l <= r):
     mid = (l+r) // 2
@@ -16,5 +16,5 @@ while (l <= r):
         result = mid
     else:
         l = mid + 1
-        
+
 print(result)
