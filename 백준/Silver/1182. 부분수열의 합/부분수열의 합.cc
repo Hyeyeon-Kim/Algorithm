@@ -10,13 +10,8 @@ int tmp[21] = {0};
 
 void dfs(int idx, int sum, int cnt){
     if (idx == n){
-        if (sum == s && cnt > 0){
-            // cout << sum << ": ";
-            // for (int i = 0; i < cnt; i++)
-            //     cout << tmp[i] << " ";
-            // cout << endl;
+        if (sum == s && cnt > 0)
             ans++;
-        }
         return ;
     }
 
@@ -30,10 +25,6 @@ int main() {
 
     for (int i =0; i < n; i++)
         cin >> arr[i];
-    sort(arr, arr+n);
-    // for (int i = 0; i < n; i++)
-    //     cout <<arr[i] << " ";
-    // cout << endl;
     dfs(0, 0, 0);
     cout << ans ;
 }   
