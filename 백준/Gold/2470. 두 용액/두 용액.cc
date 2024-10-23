@@ -39,11 +39,8 @@ int main(){
         else
             s++;
     }
-    // for (int i =0 ; i < n; i++)
-    //     cout << input[i] << " ";
 
-    // cout << endl << ans << endl;
-   cout << min(solution.first, solution.second) << " " << max(solution.first, solution.second) << endl;
+   cout << solution.first << " " << solution.second << endl;
 
 }
 
