@@ -6,46 +6,47 @@ using namespace std;
 
 int n;
 int arr[8];
-int ans[25]; // 결과 배열
-bool use[25]; // 숫자 사용 여부
+int com[25] = {0};
+int use[35] = {0};
 
-void dfs(int depth) {
-    if (depth == n * 2) {
-        for (int i = 0; i < n * 2; i++) {
-            cout << ans[i] << " ";
-        }
+void dfs(int depth){
+    if (depth == n * 2){    
+        for (int i = 0; i < n*2; i++)
+            cout << com[i] << " ";
+        cout << endl;
         exit(0);
     }
 
-    if (ans[depth] != -1) {
+    if (com[depth] != -1) {
         dfs(depth + 1);
         return;
     }
 
-    for (int i = 0; i < n; i++) {
-        if (!use[i] && depth + arr[i] + 1 < n * 2 && ans[depth + arr[i] + 1] == -1) {
-            use[i] = true;
-            ans[depth] = ans[depth + arr[i] + 1] = arr[i];
+    for (int i = 0; i < n; i++){
+        if (!use[i] && depth + arr[i]+1 < n * 2 && com[depth+arr[i]+1] == -1){
+            use[i] = 1;
 
-            dfs(depth + 1);
+            com[depth] = com[depth+arr[i]+1] = arr[i];
 
-            use[i] = false;
-            ans[depth] = ans[depth + arr[i] + 1] = -1;
+            dfs(depth+1);
+
+            use[i] = 0;
+            
+            com[depth+arr[i]+1] = com[depth] = -1;
         }
     }
 }
 
-int main() {
+int main(){
     cin >> n;
-    for (int i = 0; i < n; i++) {
+
+    for (int i = 0; i < n; i++){
         cin >> arr[i];
     }
 
-    sort(arr, arr + n);
-    memset(ans, -1, sizeof(ans));
-    memset(use, false, sizeof(use));
+    sort(arr, arr+n);
+    memset(com, -1, sizeof(com));
 
     dfs(0);
     cout << -1;
-    return 0;
 }
