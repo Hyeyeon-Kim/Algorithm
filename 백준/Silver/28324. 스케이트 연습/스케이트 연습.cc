@@ -7,8 +7,8 @@ int main() {
 
 	cin >> n;
 
-	vector<int> v(n);
-	vector<int> v2(n);
+	vector<long long> v(n);
+	vector<long long> v2(n);
 
 	for (int i = 0; i < n; i++)	
 		cin >> v[i];
@@ -19,7 +19,7 @@ int main() {
 		v2[i] = min(v[i], v2[i + 1] + 1);
 	}
 
-	int ans = 0;
+	long long ans = 0;
 	for (int i = 0; i < n ; i++)
 		ans += v2[i];
 
