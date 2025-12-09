@@ -25,17 +25,10 @@ string solution(string s, string skip, int index) {
         alpha1[i + 'a'] = cnt++;
         alpha2.push_back(i + 'a');
     }
-    
-    
-    
-    for (char c : alpha2)
-        cout << c << " ";
-    cout << endl;
-    
+
     string answer = "";
     
     for (char c : s){
-        cout << (alpha1[c]) << " " << (alpha1[c] + index) << " " << cnt << " " << ((alpha1[c] + index) % cnt) << endl;
         int idx = (alpha1[c] + index) % cnt;
         answer += alpha2[idx];
     }
