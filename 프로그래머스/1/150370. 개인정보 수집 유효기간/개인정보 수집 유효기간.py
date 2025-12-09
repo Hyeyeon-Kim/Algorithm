@@ -1,53 +1,47 @@
+def day_count(date):
+    date = date.split(".")
+    
+    year = int(date[0]) * 28 * 12
+    mon = int(date[1]) * 28
+    day = int(date[2])
+    
+    today = year + mon + day
+    return today
+
+def change_look(date):
+    ny = date // (28 * 12)
+    nm = (date % (28 * 12)) // 28
+    nd = (date % (28 * 12)) % 28
+    
+    print(date, ny, nm , nd) 
+
 def solution(today, terms, privacies):
+    today = day_count(today)
+    change_look(today)
+    print()
     
     term = {}
     
-    for t in terms:
-        kind, m = t.split(' ')
-        term[kind] = m
+    for tmp in terms:
+        tmp = tmp.split(" ")
+        term[tmp[0]] = int(tmp[1])
     
-    ty, tm, td = map(int, today.split('.'))
+    # print(term)
     
     answer = []
-    i = 0
-    for p in privacies :
-        i += 1
-        date, typ = p.split(' ')
-        year, mon, day = map(int, date.split('.'))
+    i = 1
+    for pri in privacies:
+        date, ty = pri.split(" ")
+        # print(date, ty)
         
-        plus = int(term[typ])
-    
-        if (mon + plus > 12):
-            year += (mon+plus) // 12
-            if (mon+plus) % 12 == 0:
-                year -= 1
-                m = 12
-            else:
-                m = (mon+plus) % 12
-        else :
-            m = mon + plus
+        date = day_count(date)        
+        dead = date + (term[ty] * 28) - 1
         
-        print(year, m, day)
-        
-        if day - 1 <= 0 :
-            day = 28
-            if m - 1 <= 0:
-                year -= 1
-                m = 12
-            else :
-                m -= 1
-        else:
-            day -= 1
-        
-        print(year, m, day)
-        
-        if year == ty:
-            if m < tm:
-                answer.append(i)
-            elif m == tm:
-                if day < td:
-                    answer.append(i)
-        elif (year < ty):
+        if dead < today:
             answer.append(i)
-        
+            
+        i += 1
+        change_look(dead)
+    
+
     return answer
