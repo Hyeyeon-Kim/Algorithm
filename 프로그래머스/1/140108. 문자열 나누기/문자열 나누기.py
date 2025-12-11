@@ -1,36 +1,30 @@
 def solution(s):
+    cnt = 0
+    i = 0
+    n = len(s)
     
-    ans = []
-    
-    l = 0
-    r = 0
-    
-    for i, c in enumerate(s):
+    while i < n:
         x = 0
         nx = 0
-        
-        if r != 0 and i <= r:
-            continue
-        
-        l = i
-        for j in range(i, len(s)):
-            if s[j] == c:
+        base = s[i]
+
+        j = i
+        while j < n:
+            if s[j] == base:
                 x += 1
             else:
                 nx += 1
-            
             if x == nx:
-                r = j
-                break
+                break    
+            j += 1
             
-            if (j == len(s) - 1):
-                r = len(s) - 1
-                break
+        cnt += 1
+        i = j + 1
+            
+        print(s[i : j])
         
-        # print(s[l : r+1])
-        
-        ans.append(s[l : r+1])
+        # ans.append(s[l : r+1])
             
         # print(l, r)
     
-    return len(ans)
+    return cnt
