@@ -1,34 +1,40 @@
 def solution(id_list, report, k):
+    n = len(id_list)
+    give = []
+    useridx = {}
+    take = [0] * n
     
-    cum = {}
-    mail = {}
+    for i in range(n):
+        s = set()
+        give.append(s)
+        useridx[id_list[i]] = i
+    
+    for rep in report:
+        user, reuser = rep.split(' ')
+        
+        if reuser in give[useridx[user]]:
+            continue
+        
+        give[useridx[user]].add(reuser)
+        take[useridx[reuser]] += 1
+            
+    
+    # print(give)
+    # print(take)
+    
     stop = set()
     
-    
-    for id in id_list:
-        mail[id] = set()
-        cum[id] = 0
-    
-    for re in report:
-        use, puser = re.split(' ');
-        
-        if puser not in mail[use]:
-            cum[puser] = cum.get(puser) + 1
-        
-        mail[use].add(puser)
-    
-    for key, value in cum.items():
-        if value >= k:
-            stop.add(key)
+    for i in range(n):
+        if take[i] >= k:
+            stop.add(id_list[i])
     
     answer = []
     
-    for user in id_list :
+    for i in range(n):
         cnt = 0
-        if user in mail:
-            for li in mail[user]:
-                if li in stop:
-                    cnt += 1
+        for user in give[i]:
+            if user in stop:
+                cnt += 1
         answer.append(cnt)
-    
+
     return answer
