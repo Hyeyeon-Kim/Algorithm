@@ -17,10 +17,6 @@ def solution(id_list, report, k):
         
         give[useridx[user]].add(reuser)
         take[useridx[reuser]] += 1
-            
-    
-    # print(give)
-    # print(take)
     
     stop = set()
     
