@@ -1,12 +1,12 @@
 #include <string>
 #include <vector>
-
+#include <cmath>
 using namespace std;
 
 vector<int> solution(vector<int> lottos, vector<int> win_nums) {
     int hit = 0;
     int blank = 0;
-    int arr[45] = {0};
+    int arr[46] = {0};
     
     for (int i = 0; i < 6; i++){
         if (lottos[i] == 0)
@@ -19,19 +19,8 @@ vector<int> solution(vector<int> lottos, vector<int> win_nums) {
             hit++;
     }
     
-    int worst;
-    
-    if (hit <= 1)
-        worst = 6;
-    else
-        worst = 7 - hit;
-        
-    int best;
-    
-    if (hit + blank <= 1)
-        best = 6;
-    else
-        best = 7 - hit - blank;
+    int worst = min(6, 7 - hit);
+    int best = min(6, 7 - hit - blank);
     
     return {best, worst};
 }
