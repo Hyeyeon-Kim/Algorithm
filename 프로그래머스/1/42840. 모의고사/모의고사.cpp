@@ -4,43 +4,28 @@
 #include <iostream>
 using namespace std;
 
-bool tmp(pair<int, int>&a, pair<int, int>&b){
-    if (a.first != b.first)
-        return a.first > b.first;
-    return a.second < b.second;
-}
-
 vector<int> solution(vector<int> answers) {
     int a[] = {1, 2, 3, 4, 5};
     int b[] = {2, 1, 2, 3, 2, 4, 2, 5};
     int c[] = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
     
-    vector<pair<int, int>> score(3);
-    
-    score[0] = {0, 1};
-    score[1] = {0, 2};
-    score[2] = {0, 3};
+    vector<int> score(3);
     
     for (int i = 0; i < answers.size(); i++){
         if (answers[i] == a[i % 5])
-            score[0].first++;
+            score[0]++;
         if (answers[i] == b[i % 8])
-            score[1].first++;
+            score[1]++;
         if (answers[i] == c[i % 10])
-            score[2].first++;
+            score[2]++;
     }
     
-    // cout << score[0].first;
-    
-    sort(score.begin(), score.end(), tmp);
-    
     vector<int> answer;
-    int max_ = score[0].first;
+    int max_ = *max_element(score.begin(), score.end());
     
-    
-    for (int i =0 ; i < 3; i++){
-        if(score[i].first == max_)
-            answer.push_back(score[i].second);
+    for (int i = 0 ; i < 3; i++){
+        if(score[i] == max_)
+            answer.push_back(i+1);
     }
     
     return answer;
