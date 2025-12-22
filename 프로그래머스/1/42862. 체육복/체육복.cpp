@@ -4,39 +4,33 @@
 using namespace std;
 
 int solution(int n, vector<int> lost, vector<int> reserve) {
-    vector<int> student(n+2);
-    sort(lost.begin(), lost.end());
-    sort(reserve.begin(), reserve.end());
-    for (int s: reserve)
-        student[s] = 1;
+    vector<int> clothes(n+1, 1);
     
-    vector <int> exception(n+1);
+    for (int r: reserve)
+        clothes[r]++;
     
-    for (int s : lost){
-        if (student[s]){
-            student[s] = 0;
-            exception[s] = 1;
+    for (int l : lost)
+        clothes[l]--;
+    
+    
+    for (int i = 1; i <= n; i++){
+        if (clothes[i])
+            continue;
+        if ( i > 1 && clothes[i - 1] == 2){
+            clothes[i - 1]--;
+            clothes[i]++;
+        }
+        else if (i < n && clothes[i + 1] == 2){
+            clothes[i+1]--;
+            clothes[i]++;
         }
     }
     
-    int answer = n;
+    int answer = 0;
     
-    for (int s : lost){
-        if (exception[s])
-            continue;
-        if (student[s-1]){
-            student[s-1] = 0;
-            continue;
-        }
-        if (student[s]){
-            student[s] = 0;
-            continue;
-        }
-        if (student[s+1]){
-            student[s+1] = 0;
-            continue;
-        }
-        answer--;
+    for (int i = 1; i <= n; i++){
+        if (clothes[i])
+        answer++;
     }
     
     
