@@ -1,7 +1,5 @@
 def solution(n):
     n = sorted(str(n), reverse= True)
 
-    ans = ""
-    for t in n:
-        ans += t
+    ans = ''.join(n)
     return int(ans)
