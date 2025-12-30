@@ -4,4 +4,4 @@ def solution(n):
     ans = 0
     for t in n:
         ans += int(t)
-    return ans
+    return sum(map(int, str(n)))
