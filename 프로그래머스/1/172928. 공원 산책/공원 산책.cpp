@@ -1,31 +1,24 @@
 #include <string>
 #include <vector>
+#include <map>
 #include <iostream>
 using namespace std;
 
-pair<int, int> getDir(char c){
-    if (c == 'N'){
-        return {-1, 0};
-    }
-    else if (c == 'S'){
-        return {1, 0};
-    }
-    else if (c == 'W'){
-        return {0, -1};
-    }
-    else{
-        return {0, 1};
-    }
-}
-
 vector<int> solution(vector<string> park, vector<string> routes) {
-    int x, y;
+    vector<int> answer;
+    map<char, pair<int, int>> way;
     
-    int n = park.size();
-    int m = park[0].size();
+    way['N'] = {0, -1};
+    way['S'] = {0, 1};
+    way['W'] = {-1, 0};
+    way['E'] = {1, 0};
     
-    for (int i = 0; i < park.size(); i++){
-        for (int j = 0; j < park[i].size(); j++){
+    int x = 0, y = 0;
+    int h = park.size(), w = park[0].size();
+    
+    
+    for (int i = 0; i < h; i++){
+        for (int j = 0; j < w; j++){
             if (park[i][j] == 'S'){
                 x = j;
                 y = i;
@@ -33,48 +26,32 @@ vector<int> solution(vector<string> park, vector<string> routes) {
         }
     }
     
-    for (string cmd : routes){
+    cout << y << " " << x << endl;
+    
+    for (string route: routes){
         
-        cout << y << " " << x << "    ";
-        pair<int, int> dir = getDir(cmd[0]);
-        int cnt = cmd[2] - '0';
-        
+        int nx = x;
+        int ny = y;
         bool can = true;
-        int ny = y, nx = x;
         
-        while (cnt && can){
-            ny += dir.first; 
-            nx += dir.second;
+        for (int i = 0; i < route[2] - '0'; i++){
+             nx += way[route[0]].first;
+             ny += way[route[0]].second;
             
-            if (nx < 0 || ny < 0 || nx >= m || ny >= n){
+            if (nx < 0 || ny < 0 || nx >= w || ny >= h || park[ny][nx] == 'X'){
                 can = false;
                 break;
             }
-            if (park[ny][nx] == 'X')
-                can = false;  
-            cnt--;
+            cout << ny << "," << nx << "  ";
         }
+        cout << can << "      ";
+        cout << endl;
         
-        if (!can)
-            continue;
-        
-        x = nx;
-        y = ny; 
-        
-        cout << y << " " << x << "\n";
+        if (can){
+            x = nx;
+            y = ny;
+        }
     }
     
     return {y, x};
 }
-
-//  N
-// W E
-//  S
-
-
-/*
-    "OSO"
-    "OOO"
-    "OXO"
-    "OOO"
-*/
