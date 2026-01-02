@@ -1,2 +1,3 @@
 def solution(n):
-    return list(map(int, str(n)[::-1]))
+    s = list(map(int, str(n)))
+    return s[::-1]
