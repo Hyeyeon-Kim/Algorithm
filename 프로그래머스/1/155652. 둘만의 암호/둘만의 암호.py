@@ -1,19 +1,16 @@
 def solution(s, skip, index):
     answer = ''
-    alpha = {}
+    alpha = []
     skip = set(skip)
 
     for i in range(26):
         c = chr(97 + i)
         if c not in skip:
-            idx = len(alpha) // 2
-            alpha[idx] = c
-            alpha[c] = idx
+            alpha.append(c)
 
-    # print(alpha)
+    print(alpha)
     for c in s:
-        # print(alpha[c], alpha[c] + index, (alpha[c] + index) % (len(alpha) // 2))
-        answer += alpha[(alpha[c] + index) % (len(alpha) // 2)]
+        answer += alpha[(alpha.index(c) + index) % len(alpha)]
 
     
     return answer
