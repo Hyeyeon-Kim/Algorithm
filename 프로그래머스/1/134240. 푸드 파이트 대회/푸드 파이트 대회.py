@@ -1,10 +1,10 @@
 def solution(food):
+    s = ''
     
-    s = []
+    for i, cnt in enumerate(food):
+        if i == 0:
+            pass
+        s += str(i) * (cnt // 2)
     
-    for i in range(1, len(food)):
-        cnt = food[i] // 2
-        s.append(str(i) * cnt)
-            
-    answer = "".join(s)
-    return answer + "0" + answer[::-1]
+    s += '0' + s[::-1]
+    return s
