@@ -1,33 +1,27 @@
 def solution(friends, gifts):
-    state = {}
-    give = {}
-    take = {}
-    result = {}
     
-    for friend in friends:
-        state[friend] = {f: 0 for f in friends}
-        give[friend] = 0
-        take[friend] = 0
-        result[friend] = 0
-        
+    result = {f: {ff : 0 for ff in friends} for f in friends}
+    score = {f : 0 for f in friends}
+    
     for gift in gifts:
-        g, t = gift.split(' ')
-        state[g][t] += 1
-        give[g] += 1
-        take[t] += 1
+        give, take = gift.split(' ')
         
-    
-    for friend in friends:
-        cnt = 0
-        for author in friends:
-            if friend == author:
-                continue
-            
-            if state[friend][author] > state[author][friend]:
-                cnt += 1
-            elif state[friend][author] == state[author][friend] and give[friend] - take[friend] > give[author] - take[author]:
-                cnt += 1
+        result[give][take] += 1
         
-        result[friend] = cnt
+        score[give] += 1
+        score[take] -= 1
     
-    return max(result.values())
+    gift = [0 for i in friends]
+    
+    for i, friend in enumerate(friends):
+        for f in friends:
+            if f != friend:
+                # print(result[friend][f], result[f][friend])
+                if result[friend][f] > result[f][friend]:
+                    gift[i] += 1
+                    # print(1, score[friend], score[f], gift)
+                elif result[friend][f] == result[f][friend] and (score[friend] > score[f]):
+                    gift[i] += 1
+                    # print(2, score[friend], score[f], gift)
+
+    return max(gift)
