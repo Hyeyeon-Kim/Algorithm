@@ -1,16 +1,12 @@
 def solution(s, skip, index):
-    answer = ''
-    alpha = []
-    skip = set(skip)
-
-    for i in range(26):
-        c = chr(97 + i)
-        if c not in skip:
-            alpha.append(c)
-
-    print(alpha)
+    
+    alpa = [chr(c) for c in range(ord('a'), ord('z') + 1) if chr(c) not in skip]
+    
+    ans = ''
+    
     for c in s:
-        answer += alpha[(alpha.index(c) + index) % len(alpha)]
+        idx = (alpa.index(c) + index) % len(alpa)
+        ans += alpa[idx] 
 
     
-    return answer
+    return ans
