@@ -1,35 +1,38 @@
 #include <string>
 #include <vector>
-#include <stack>
 #include <iostream>
 using namespace std;
 
 int solution(int n, int w, int num) {
+    // num = 1;
+    vector<vector<int>> box(n / w + 1, vector<int>(w));
     
-    int c;
-    
-    c = ((num-1) / w) % 2 == 0 ? ((num-1) % w) : w - ((num-1) % w) - 1;
-    
-    // cout << r << " " << c << endl;
-    
-    int cnt = 1;
-    
-    for (int i = num + 1; i <= n; i++){
-        int idx;
-    
-        idx = ((i-1) / w) % 2 == 0 ? ((i-1) % w) : w - ((i-1) % w) - 1;
+    for (int i = 0; i < n; i++){
         
-        if (idx == c)
-            cnt++;
+        int ii = i / w;
+        int j = i % w;
         
-        // cout << (idx == c) << endl;
-        
-        // cout << i << ": " << idx << endl;
+        // cout << ii << " " << j << "   ";
+        if (ii % 2 == 0)
+            box[ii][w-1-j] = i+1;
+        else{
+            box[ii][j] = i+1;
+        }
     }
     
+    int h = (num-1) / w, ww;
+    if (h % 2 == 0)
+        ww = w - 1 - ((num-1) % w);
+    else
+        ww = (num-1) % w;;
+        
+   cout << h << " " << ww << "   \n";
+    int cnt = 0;
+    
+    for (int i = h; i <= n / w; i++){
+        cout << box[i][ww] << " ";
+        if (box[i][ww])
+            cnt++;
+    }    
     return cnt;
 }
-
-        //     cout << i+1 <<" : " << (i / w) << " "<< (i % w) << endl;
-        // else
-        //     cout << i+1 <<" : " << (i / w) << " "<< w  - (i % w) - 1<< endl;
