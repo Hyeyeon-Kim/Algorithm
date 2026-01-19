@@ -1,30 +1,28 @@
 def solution(s):
-    cnt = 0
-    i = 0
-    n = len(s)
+    x_cnt = 0
+    a_cnt = 0
+    x = None
+    ans = 0
     
-    while i < n:
-        x = 0
-        nx = 0
-        base = s[i]
-
-        j = i
-        while j < n:
-            if s[j] == base:
-                x += 1
-            else:
-                nx += 1
-            if x == nx:
-                break    
-            j += 1
-            
-        cnt += 1
-        i = j + 1
-            
-        print(s[i : j])
+    for i, c in enumerate(s):
+        if x == None:
+            x = c
+            x_cnt += 1
+        elif x == c:
+            x_cnt += 1
+        else:
+            a_cnt += 1 
         
-        # ans.append(s[l : r+1])
-            
-        # print(l, r)
+        # print(c, x_cnt, a_cnt, ans)
+        
+        if x_cnt == a_cnt:
+            ans += 1
+            x_cnt = 0
+            x = None
+            a_cnt = 0
+        else:
+            if i == len(s) - 1:
+                ans += 1
+        
     
-    return cnt
+    return ans
