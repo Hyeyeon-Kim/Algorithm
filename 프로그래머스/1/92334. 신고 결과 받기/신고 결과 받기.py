@@ -1,36 +1,28 @@
-def solution(id_list, report, k):
-    n = len(id_list)
-    give = []
-    useridx = {}
-    take = [0] * n
+def solution(id_list, reports, k):
     
-    for i in range(n):
-        s = set()
-        give.append(s)
-        useridx[id_list[i]] = i
+    get = {id : 0 for id in id_list}
+    post = {id : set() for id in id_list}
     
-    for rep in report:
-        user, reuser = rep.split(' ')
+    for report in reports:
+        p , g = report.split(' ')
+        if g not in post[p]:
+            get[g] += 1
+            post[p].add(g)
+    
+    ban = set()
+    
+    for id in id_list: 
+        if get[id] >= k:
+            ban.add(id)
+    
+    answer = [0] * len(id_list)
+    
+    for i, id in enumerate(id_list): 
+        for p in post[id]:
+            if p in ban:
+                answer[i] += 1
         
-        if reuser in give[useridx[user]]:
-            continue
-        
-        give[useridx[user]].add(reuser)
-        take[useridx[reuser]] += 1
     
-    stop = set()
+    # print(get, post)
     
-    for i in range(n):
-        if take[i] >= k:
-            stop.add(id_list[i])
-    
-    answer = []
-    
-    for i in range(n):
-        cnt = 0
-        for user in give[i]:
-            if user in stop:
-                cnt += 1
-        answer.append(cnt)
-
     return answer
