@@ -18,5 +18,4 @@ def solution(answers):
     
     answer = [a for a in ans if ans[a] == max_]
     
-    
-    return sorted(answer, key = lambda k:ans[k])
+    return sorted(answer)
