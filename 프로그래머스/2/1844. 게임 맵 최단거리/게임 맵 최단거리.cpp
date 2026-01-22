@@ -6,40 +6,32 @@ using namespace std;
 
 int solution(vector<vector<int> > maps)
 {
-    int n = maps.size();
-    int m = maps[0].size();
+    int n = maps.size(), m = maps[0].size();
     int nX[4] = {0, 1, 0, -1};
     int nY[4] = {1, 0, -1, 0};
-    vector<vector<bool>> visit(n, vector<bool>(m));
-    queue<array<int, 3>> q;
+    vector<vector<int>> dist(n, vector<int>(m, -1));
+    queue<array<int, 2>> q;
     
-    q.push({0, 0, 1});
-    visit[0][0] = true;
-    int ans = -1;
+    q.push({0, 0});
+    dist[0][0] = 1;
     
     while (!q.empty()){
-        int x = q.front()[0];
-        int y = q.front()[1];
-        int cnt = q.front()[2];
+        auto [x, y] = q.front(); q.pop();
         
-        q.pop();
-        
-        if (x == m -1 && y == n - 1){
-            ans = cnt;
-            break;
-        }
-        
+        if (x == m -1 && y == n - 1)
+            return dist[y][x];
+    
         for (int i = 0; i < 4; i++){
             int nx = nX[i] + x;
             int ny = nY[i] + y;
             
-            if (nx < 0 || ny < 0|| nx >= m || ny >= n || visit[ny][nx] || maps[ny][nx] != 1)
+            if (nx < 0 || ny < 0|| nx >= m || ny >= n || dist[ny][nx]!= -1|| maps[ny][nx] == 0)
                 continue;
             
-            visit[ny][nx] = true;
-            q.push({nx, ny, cnt + 1});
+            dist[ny][nx] = dist[y][x] + 1;
+            q.push({nx, ny});
         }
     }
     
-    return ans;
+    return -1;
 }
