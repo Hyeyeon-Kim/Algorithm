@@ -1,24 +1,21 @@
 import re
 
 def solution(babbling):
-    cnt = 0
+    ans = 0
     
-    for s in babbling:
-        can = True
+    for bab in babbling:
+        b = re.split("(aya)|(ye)|(woo)|(ma)", bab)
+        token = list(filter(lambda x: x not in(None, ''), b))
+        
+        ok = True
         pre = ''
-        
-        while len(s):
-            if s[:3] != pre and (s[:3] == "aya" or s[:3] == "woo"):
-                pre = s[:3]
-                s = s[3:]
-            elif s[:2] != pre and (s[:2] == "ye" or s[:2] == "ma"):
-                pre = s[:2]
-                s = s[2:]   
-            else:
-                can = False
+        for t in token:
+            if pre == t or t not in ('aya','ye','woo','ma'):
+                ok = False
                 break
+            pre = t
         
-        if can:
-            cnt += 1
-                
-    return cnt
+        if ok:
+            ans += 1
+    
+    return ans
