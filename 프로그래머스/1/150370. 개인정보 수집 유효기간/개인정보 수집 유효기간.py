@@ -1,26 +1,33 @@
-def strToDay(day):
-    y,m,d = map(int, day.split('.'))
-    return y * 336 + (m - 1) * 28 + (d - 1)
-
-def dayToStr(day):
-    y = day // 336
-    rem = day % 336
-    m = rem // 28
-    d = rem % 28
+def change(day):
+    y, m, d = list(map(int,day.split('.')))
     
-    return f"{y}.{m+1:02d}.{d+1:02d}"
+    return y * 28 * 12 + m * 28 + d
+
+def rev(day):
+    y = day // (28 * 12)
+    t = day % (28 * 12)
+    m = t // 28
+    d = t % 28
+    
+    return str(y) + '.' + str(m).zfill(2) + '.' + str(d).zfill(2)
 
 def solution(today, terms, privacies):
-    today = strToDay(today)
-    terms = {t: int(d) for term in terms for t, d in [term.split(' ')]}
+    today = change(today)
     
-    answer = []
-
-    for i, privacie in enumerate(privacies, start = 1):
-        day, t = privacie.split(' ')
-        day = strToDay(day) + (terms[t] * 28) - 1
+    t = {}
+    
+    for term in terms:
+        a, b = term.split(' ')
+        t[a] = int(b) * 28
         
-        if today > day:
-            answer.append(i)
+        
+    ans = []
+    for i, p in enumerate(privacies, start = 1):
+        d, ty = p.split(' ')
+        d = change(d)
+        
+        # print(rev(today), rev(d))
+        if (d + t[ty] <= today):
+            ans.append(i)
     
-    return answer
+    return ans
