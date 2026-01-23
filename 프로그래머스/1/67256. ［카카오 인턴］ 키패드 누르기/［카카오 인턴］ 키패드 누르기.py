@@ -1,40 +1,38 @@
 def solution(numbers, hand):
     
-    pos = {num: [(num - 1)//3, (num - 1) % 3] for num in range(1, 10)}
-    pos[0] = [3,1]
-    
-    L = [3, 0]
-    R = [3, 2]
-    
-    ans = ''
+    key = {i: [(i - 1) // 3, (i - 1) % 3] for i in range(1, 10)}
+    key[0] = [3, 1]
+
+    answer = ''
+    l = [3, 0] 
+    r = [3, 2]
     
     for num in numbers:
-        if num in [1, 4, 7]:
-            L = pos[num]
-            ans += 'L'
-        elif num in [3, 6, 9]:
-            R = pos[num]
-            ans += 'R'
+        if num in (1, 4, 7):
+            answer += 'L'
+            l = key[num]
+        elif num in (3, 6, 9):
+            answer += 'R'
+            r = key[num]
         else:
-            Ldist = abs(L[0] - pos[num][0]) + abs(L[1] - pos[num][1])
-            Rdist = abs(R[0] - pos[num][0]) + abs(R[1] - pos[num][1])
-
-            if Ldist < Rdist:
-                L = pos[num]
-                ans += 'L'
-            elif Ldist > Rdist:
-                R = pos[num]
-                ans += 'R'
-            else:
-                if hand == "right":
-                    R = pos[num]
-                    ans += 'R'
-                else:
-                    L = pos[num]
-                    ans += 'L'
-                    
-#             print(Ldist, Rdist)
-                    
-#         print(L, R, ans, pos[num], num)
+            ld = abs(l[0] - key[num][0]) + abs(l[1] - key[num][1])
+            rd = abs(r[0] - key[num][0]) + abs(r[1] - key[num][1])
             
-    return ans
+            if ld < rd:
+                answer += 'L'
+                l = key[num]
+            elif ld > rd:
+                answer += 'R'
+                r = key[num]
+            else:
+                if hand == 'left':
+                    answer += 'L'
+                    l = key[num]
+                else:
+                    answer += 'R'
+                    r = key[num]
+            
+        #     print(ld, rd, num)
+        # print(answer, num , l, r)
+    
+    return answer
