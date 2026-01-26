@@ -1,26 +1,26 @@
-import re 
-
+import re
 def solution(dartResult):
-    score = list(filter(None, re.split('[SDT][*#]?', dartResult)))
-    plus = list(filter(None, re.split('\d+', dartResult)))
-
-    for i in range(3):
-        s = int(score[i])
+    
+    dartResult = re.findall(r'(\d+)([SDT])([*#]?)', dartResult)
+    
+    for i, (n, p, o) in enumerate(dartResult):
+        n = int(n)
         
-        if plus[i][0] == 'D':
-            s **= 2
-        elif plus[i][0] == 'T':
-            s **= 3
+        if p == 'D':
+            n **= 2
+        elif p == 'T':
+            n **= 3
         
-        if plus[i][-1] == '*':
-            if i > 0:
-                score[i-1] *= 2
-            score[i] = s * 2
-                
-        elif plus[i][-1] == '#':
-            score[i] = -s
-            
-        else:
-            score[i] = s
-            
-    return sum(score)
+        if o == '*':
+            n *= 2
+            if i != 0:
+                dartResult[i-1] *= 2
+        elif o == '#':
+            n = -n
+        
+        dartResult[i] = n
+        
+        
+    # print(dartResult)
+    
+    return sum(dartResult)
