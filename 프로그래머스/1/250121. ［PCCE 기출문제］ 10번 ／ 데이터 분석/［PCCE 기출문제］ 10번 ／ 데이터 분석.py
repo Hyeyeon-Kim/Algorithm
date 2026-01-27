@@ -1,18 +1,6 @@
-def f(typ):
-    if typ == "code":
-        return 0
-    elif typ == "date":
-        return 1
-    elif typ == "maximum":
-        return 2
-    else:
-        return 3
-
-
 def solution(data, ext, val_ext, sort_by):
+    idx = {"code":0, "date":1, "maximum":2, "remain":3}
     
-    code = f(ext)
-    answer = [da for da in data if da[code] < val_ext]
+    data = [d for d in data if d[idx[ext]] < val_ext]
     
-    code = f(sort_by)
-    return sorted(answer, key=lambda k: k[code])
+    return sorted(data, key=lambda x:x[idx[sort_by]])
