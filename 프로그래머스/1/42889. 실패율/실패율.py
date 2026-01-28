@@ -1,9 +1,16 @@
 def solution(N, stages):
-    cnt = [0] * (N + 1)
+    state = {i: 0.0 for i in range(1, N + 1)}
+    cnt = len(stages)
     
     for s in stages:
-        cnt[s-1] += 1
+        if s <= N:
+            state[s] += 1
     
-    state = {n+1: (cnt[n] / sum(cnt[n:N+1]) if sum(cnt[n:N+1]) > 0 else 0) for n in range(N)}
-
-    return sorted(state, key = lambda x:state[x], reverse = True)
+    for i, s in enumerate(state, start=1):
+        if state[i] == 0 or cnt == 0:
+            continue
+        fail = state[i] / cnt  
+        cnt -= state[i]
+        state[i] = fail
+        
+    return sorted(state, key = lambda x:state[x], reverse=True)
