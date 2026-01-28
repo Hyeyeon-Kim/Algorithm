@@ -1,37 +1,34 @@
 def solution(park, routes):
-    x = 0
-    y = 0
-    n = len(park)
-    m = len(park[0])
+    n, m = len(park), len(park[0])
+    ways = {"W":[-1, 0], "N":[0, -1], "S":[0, 1], "E":[1, 0]}
+    s = [0, 0]
     
-    for i, pa in enumerate(park):
-        for j, p in enumerate(pa): 
-            if(park[i][j] == 'S'):
-                x = j
-                y = i
+    for i in range(n):
+        for j in range(m):
+            if park[i][j] == 'S':
+                s[0] = j
+                s[1] = i
                 break
-                
-    way = {'N': [0, -1], 'S': [0, 1], 'W': [-1, 0], 'E': [1, 0]}
     
-    for r in routes:
-        d, c = r.split()
-        cnt = 0
+    x, y = s[0], s[1]
+    print(y, x)
+    for route in routes:
+        w, cnt = route.split(' ')
+        cnt = int(cnt)
         
-        nx = x
-        ny = y
-        
-        while nx >= 0 and ny >= 0 and nx < m and ny < n and park[ny][nx] != 'X' and cnt < int(c):
-            nx += way[d][0]
-            ny += way[d][1]
+        nx, ny = x, y
+        ok = True
+        for i in range(cnt):
+            nx += ways[w][0]
+            ny += ways[w][1]
             
-            if not (nx >= 0 and ny >= 0 and nx < m and ny < n and park[ny][nx] != 'X' and cnt < int(c)):
+            if nx < 0 or ny < 0 or nx >= m or ny >= n or park[ny][nx] == 'X':
+                ok = False
                 break
-            cnt += 1
-        
-        if (cnt == int(c)):
+            
+        if ok:
             x = nx
             y = ny
-            
-        print(x, y, (cnt == int(c)))
-            
+        print(y, x)
+        
     return [y, x]
