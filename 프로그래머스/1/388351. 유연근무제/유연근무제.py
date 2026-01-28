@@ -1,24 +1,25 @@
-def change(s):
-    return int((s // 100 * 60) + (s % 100))
+def change(time):
+    h = time // 100
+    m = time % 100
+    return h * 60 + m
 
 def solution(schedules, timelogs, startday):
-    deadline = [change(s) + 10 for s in schedules]
-    
-    # print(deadline)
+    schedules = [change(s) + 10 for s in schedules]
     ans = 0
     
-    for i, tt in enumerate(timelogs):
-        cnt = 0
+    for i, logs in enumerate(timelogs):
+        ok = True
         
-        for j, t in enumerate(tt):
-            day = (j + startday - 1) % 7 + 1
-            if (day == 6 or day == 7):
+        for j, log in enumerate(logs):
+            day = (startday + j - 1) % 7
+            if day >= 5:
                 continue
-
-            if deadline[i] >= change(t):
-                cnt += 1 
-
-        if (cnt == 5):
+            
+            if change(log) > schedules[i]:
+                ok = False
+                break
+        
+        if ok:
             ans += 1
             
     return ans
