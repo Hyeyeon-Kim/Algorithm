@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+n, k = map(int, input().split())
+state = [[0]* n for _ in range(n)]
+coor = [[0, -1],[-1, 0],[1, 0],[0, 1]]
+
+for i in range(k):
+	x, y = map(int, input().split())
+	state[y-1][x-1] += 1
+	
+	for ny, nx in coor:
+		nx += x - 1
+		ny += y - 1
+
+		if (0 <= nx < n) and (0 <= ny < n):
+			state[ny][nx] += 1
+			
+print(sum(map(sum, state)))
+
+	# 1 1 0
+	# 1 0 2
+	# 0 2 2
