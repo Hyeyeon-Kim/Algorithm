@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+n = int(input())
+sp = set()
+state = {}
+
+for i in range(1,n+1):
+	v, w = list(map(int, input().split()))
+	if v not in sp:
+		state[v] = [w, i]
+		sp.add(v)
+	else:
+		if state[v][0] < w:
+			state[v][0] = w
+			state[v][1] = i
+		elif state[v][0] == w:
+			state[v][1] = max(state[v][1], i)
+
+# print(state)
+ans = 0
+for v in state:
+	# print(a, b)
+	ans += state[v][1]
+
+print(ans)
