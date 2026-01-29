@@ -1,30 +1,18 @@
-def solution(boards, moves):
-    boards = list(zip(*boards))
-    boards = [[b for b in board[::-1] if b != 0] for board in boards]
+import re
+
+def solution(board, moves):
+    board = [[bo[i] for i in range(len(bo)-1, -1, -1) if bo[i] != 0] for bo in list(zip(*board))]
     
     s = []
     ans = 0
-    
-    print(boards)
-    
     for move in moves:
-        tem = None
-        
-        if (boards[move - 1]):
-            tem = boards[move - 1][-1]
-            boards[move - 1].pop()
-        
-        if (tem == None):
-            continue
+        if board[move - 1]:
+            n = board[move - 1].pop()
             
-        if len(s):
-            if s[-1] == tem:
-                s.pop()
+            if s and s[-1] == n:
                 ans += 2
+                s.pop()
             else:
-                s.append(tem)
-        else:
-            s.append(tem)
-        
-        # print(move, tem, s, '     ',boards)
+                s.append(n)
+    
     return ans
