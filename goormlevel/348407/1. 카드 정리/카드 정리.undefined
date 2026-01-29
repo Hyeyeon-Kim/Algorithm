@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+n = int(input())
+arr = list(map(int, input().split()))
+arr = set(arr)
+arr = sorted(arr, reverse = True)
+print(*arr)
+# for i in range(n):
+	
