@@ -1,0 +1,13 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+n = int(input())
+state = {i:[0, 0] for i in range(1, n+1)}
+
+for i in range(1, n+1):
+	w , v = map(int, input().split())
+	state[i][0] = w / v
+	state[i][1] = max(state[i][1], w)
+
+# print(state)
+state = sorted(state, key = lambda x:(-state[x][0], -state[x][1], x))
+print(state[0])
