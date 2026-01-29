@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+n, m = map(int, input().split())
+ans = -1
+s = set()
+
+for i in range(m):
+	card = int(input())
+	s.add(card)
+
+	if len(s) == n and ans == -1:
+		ans = i+1
+
+print(ans)
