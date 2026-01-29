@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+n, m = map(int, input().split())
+sub = {i: [0, 0] for i in range(1, m+1)}
+
+for i in range(n):
+	a, b = map(int, input().split())
+	sub[a][0] += b
+	sub[a][1] += 1
+
+for i in range(1, m+1):
+	if sub[i][0]:
+		sub[i][0] = sub[i][0] / sub[i][1]
+		
+sub = sorted(sub, key= lambda x : (-sub[x][0], x))
+print(sub[0])
