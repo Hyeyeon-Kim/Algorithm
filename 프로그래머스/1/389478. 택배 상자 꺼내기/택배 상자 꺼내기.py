@@ -1,23 +1,19 @@
-def change(n, y, w):
-    x = (n - 1) % w
-    
-    if y % 2 == 1:
-        x = w - ((n - 1) % w) - 1
-    
-    return x
-    
-def solution(n, w, num):
-    topy = (n - 1) // w
-    y = (num - 1) // w
-    topx = change(n, topy, w)
-    x = change(num, y, w)
+def idx_x(n, w, h):
+    if h % 2 == 1:
+        return (w - (n % w)) - 1
+    return n % w 
 
-    ans = topy - y
+def solution(n, w, num):
     
-    if topy % 2 == 0:
-        if x <= topx:
-            ans += 1
-    else: 
-        if x >= topx:
-            ans += 1
-    return ans
+    n_h = (n - 1) // w
+    n_w = idx_x(n-1, w, n_h)
+    num_h = (num - 1) // w
+    num_w = idx_x(num-1, w, num_h)
+    
+    # print(n_h, num_h, n_w, num_w)
+    if n_h % 2 == 1 and n_w <= num_w:
+        return n_h - num_h + 1
+    elif n_h % 2 == 0 and n_w >= num_w:
+        return n_h - num_h + 1
+    else:
+        return n_h - num_h
