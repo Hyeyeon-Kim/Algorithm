@@ -1,0 +1,42 @@
+import math
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+bx, by = map(int, input().split())
+gx, gy = map(int, input().split())
+n = int(input())
+
+dist = math.sqrt((bx - gx) ** 2 + (by - gy) ** 2)
+
+ans = "YES"
+cnt = 0 
+
+if dist < 5:
+	ans = "NO"
+else:
+	for i in range(n):
+		x, y = map(int, input().split())
+
+		if min(bx, gx) <= x <= max(bx, gx) and min(by, gy) <= y <= max(by, gy):
+			cnt += 1
+
+	if cnt < 3:
+		ans = "NO"
+
+print(ans)
+
+
+# G 0 0 0
+# 0 - - 0
+# 0 - 0 0
+# 0 0 0 B
+
+# G 0 0 0 0
+# 0 - - 0 0 
+# 0 - 0 0 0
+# 0 0 0 0 B
+
+# G 0 0 0 
+# 0 - - 0  
+# 0 - 0 0 
+# 0 0 0 0
+# 0 0 0 B
