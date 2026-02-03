@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+# UTF-8 encoding when using korean
+b_, c_ = map(int, input().split())
+
+b = max(b_, c_)
+c = min(b_, c_)
+
+while c:
+	tmp = b % c
+	b = c
+	c = tmp
+
+print(f"{b_//b}:{c_//b}")
+	
+
+# print ("Hello World! Your input is " + user_input)
