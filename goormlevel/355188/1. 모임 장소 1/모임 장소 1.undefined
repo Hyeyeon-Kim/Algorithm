@@ -1,0 +1,20 @@
+n = int(input())
+
+x = [0] * n
+y = [0] * n
+
+for i in range(n):
+	x[i], y[i] = map(int, input().split())
+
+idx = n//2 if n % 2 == 1 else n//2-1
+
+x_ = sorted(x)[idx]
+y_ = sorted(y)[idx]
+
+ans = 0
+
+# print(x_, y_)
+for i in range(n):
+	ans += abs(x[i] - x_) + abs(y[i] - y_)
+
+print(ans)
